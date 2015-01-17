@@ -4,8 +4,9 @@
 # ./thrurl -h "localhost" -p 5000 -m "checkinsPerLocation" -s "CheckinService" -a "{ user: { id: 1 } }"
 
 
-Dir["./lib/*.rb"].each { |f| require f; }
-
+require 'args_reader'
+require 'client'
+require 'thrift_generator'
 
 
 configs = ArgsReader.new(ARGV).configs

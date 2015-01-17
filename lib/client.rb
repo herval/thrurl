@@ -1,5 +1,7 @@
 require 'thrift'
 require 'json'
+require 'method_call'
+require 'type_adapter'
 
 class Client
 	def initialize(client_thrift_class, config)
