@@ -9,10 +9,9 @@ class ThriftGenerator
 	end
 
 	def generate_if_needed(&block)
-		if !File.directory?("#{@base_dir}/#{GEN_FOLDER}")
-			puts "Generating Ruby classes in #{@base_dir}/#{GEN_FOLDER}"
-			`thrift -r --gen rb #{@idl}`
-		end
+		puts "Generating Ruby classes in #{@base_dir}/#{GEN_FOLDER}"
+		`thrift -r --gen rb #{@idl}`
+
 		$LOAD_PATH.unshift(GEN_FOLDER)
 		require @base_dir + "/#{GEN_FOLDER}/#{@module_name.downcase}.rb"
 		eval(@module_name)
