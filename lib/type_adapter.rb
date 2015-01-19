@@ -35,7 +35,8 @@ class TypeAdapter
 	def adapt(metadata, values)
 		adapted_params = {}
 		values.each_with_index { |v, i|
-			adapted_params[v.first] = adapt_field(metadata[i], v.last)
+			meta = metadata.find { |m| m[:name] == v.first.to_s }
+			adapted_params[v.first] = adapt_field(meta, v.last)
 		}
 		adapted_params
 	end
