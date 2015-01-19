@@ -16,3 +16,8 @@ thrurl -h "my-thrift-server" -p 5000 -m "checkinsPerLocation" -s "CheckinService
 ```
 
 Thrurl will parse the response and display it in JSON format (in case you want to use the output of the script, and because it's a nice human readable format).
+
+## Things to improve
+
+- The error messages when e.g. fields are missing or have the wrong type is still *very* cryptic
+- If you use enums, you have to pass in the *value* of the enum
