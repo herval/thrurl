@@ -3,6 +3,7 @@
 require 'args_reader'
 require 'client'
 require 'thrift_generator'
+require 'pp'
 
 configs = ArgsReader.new(ARGV).configs
 
@@ -10,4 +11,4 @@ thrift_module = ThriftGenerator.new(configs[:service]).generate_if_needed
 
 resp = Client.new(thrift_module::Client, configs).call
 
-puts ObjectInspector.new(resp).to_json
+puts ObjectInspector.new(resp).response_map.to_json

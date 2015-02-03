@@ -3,6 +3,7 @@ include "geo_types.thrift"
 struct User {
   1: required i32 id
   2: optional string username
+  3: optional map<string, bool> permissions
 }
 
 // basic track attributes required for figuring out if a track or playlist is visible to someone

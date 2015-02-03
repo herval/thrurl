@@ -9,9 +9,9 @@ class ThriftGenerator
 	end
 
 	def generate_if_needed(&block)
-		puts "Generating Ruby classes for all available thrift files in #{@base_dir}/#{GEN_FOLDER}"
+		# puts "Generating Ruby classes for all available thrift files in #{@base_dir}/#{GEN_FOLDER}"
 		Dir.glob("*.thrift").each { |f|
-			puts "Compiling #{f}"
+			# puts "Compiling #{f}"
 			`thrift -r --gen rb #{f}`
 		}
 

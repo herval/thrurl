@@ -12,10 +12,12 @@ class User
   include ::Thrift::Struct, ::Thrift::Struct_Union
   ID = 1
   USERNAME = 2
+  PERMISSIONS = 3
 
   FIELDS = {
     ID => {:type => ::Thrift::Types::I32, :name => 'id'},
-    USERNAME => {:type => ::Thrift::Types::STRING, :name => 'username', :optional => true}
+    USERNAME => {:type => ::Thrift::Types::STRING, :name => 'username', :optional => true},
+    PERMISSIONS => {:type => ::Thrift::Types::MAP, :name => 'permissions', :key => {:type => ::Thrift::Types::STRING}, :value => {:type => ::Thrift::Types::BOOL}, :optional => true}
   }
 
   def struct_fields; FIELDS; end
