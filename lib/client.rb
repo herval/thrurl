@@ -1,7 +1,7 @@
 require 'thrift'
 require 'json'
-require 'method_call'
-require 'type_adapter'
+require_relative 'method_call'
+require_relative 'type_adapter'
 
 class Client
 	def initialize(client_thrift_class, config)
@@ -16,24 +16,7 @@ class Client
 		@transport.open
 		resp = @client.send(*@call.args)
 		@transport.close
-		to_hash(resp).to_json
+		resp
 	end
 
-	private
-
-	def to_hash(obj)
-		if obj.is_a?(Hash)
-			Hash[*
-				obj.map { |key_value| [to_hash(key_value.first), to_hash(key_value.last)] }.flatten
-			]
-		elsif obj.is_a?(Array)
-			obj.map { |f| to_hash(f) }
-		elsif obj.is_a?(::Thrift::Struct)
-			Hash[*
-				obj.struct_fields.values.map { |f| [f[:name], to_hash(obj.send(f[:name]))] }.flatten
-			]
-		else
-			obj
-		end
-	end
 end

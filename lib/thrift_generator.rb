@@ -9,12 +9,26 @@ class ThriftGenerator
 	end
 
 	def generate_if_needed(&block)
-		puts "Generating Ruby classes in #{@base_dir}/#{GEN_FOLDER}"
-		`thrift -r --gen rb #{@idl}`
+		puts "Generating Ruby classes for all available thrift files in #{@base_dir}/#{GEN_FOLDER}"
+		Dir.glob("*.thrift").each { |f|
+			puts "Compiling #{f}"
+			`thrift -r --gen rb #{f}`
+		}
 
-		$LOAD_PATH.unshift(GEN_FOLDER)
-		require @base_dir + "/#{GEN_FOLDER}/#{@module_name.downcase}.rb"
-		eval(@module_name)
+		service_file = @base_dir + "/#{GEN_FOLDER}/#{@module_name.downcase}.rb"
+		
+		if !File.exists?(service_file)
+			puts "Could not generate code for module #{@module_name} - can't find .thrift file"
+			exit 1
+		end
+
+		load_module(service_file)
 	end
+
+	def load_module(service_file)
+		$LOAD_PATH.unshift(GEN_FOLDER)
+		require service_file
+		eval(@module_name)
+  end		
 
 end
